@@ -112,7 +112,7 @@ void generate_input_data(std::string & output_path, Parameters & params,
 	} else {
 		for (size_t i = 0; i < params.N; i++) {
 			input_data[i] = dist(gen);
-        		output_file.write(reinterpret_cast<char *>(&input_data[i]), sizeof(int));
+        	output_file.write(reinterpret_cast<char *>(&input_data[i]), sizeof(int));
 		}
 	}
 	output_file.close();
@@ -142,9 +142,24 @@ void generate_point_queries(std::string & output_path, Parameters & params,
 	output_file.close();
 
 }
-void generate_range_queries(std::string & output_path, Parameters & params,
-		std::vector<int> & input_data) {
-	// Your code starts here ...
+void generate_range_queries(std::string & output_path, Parameters & params, std::vector<int> & input_data) {
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine gen (seed);
+    std::uniform_int_distribution<int>  dist1(0, input_data.size() - 1);
+
+    // fix the number of elements to be selected as ⌊s*N⌋
+    int num_elements = floor(params.s * params.N);
+
+    std::ofstream output_file(output_path);
+    for (size_t i = 0; i < params.R; i++) {
+        int left = dist1(gen);
+        int right = left + num_elements;
+        if(right>=input_data.size())
+        {
+            right = input_data.size()-1;
+            left = right-num_elements;
+        }
+        output_file << left << " " << right << std::endl;
+    }
+    output_file.close();
 }
-
-

@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 
   //1. ----------------------------- initialize zonemap and build -----------------------------
   //build zonemap
-  zonemap<int> zones(data, (uint)data.size() / 100);
+  zonemap<int> zones(data, (size_t)data.size() / 100);
 
   //2. ----------------------------- point queries -----------------------------
   std::vector<int> queries;
