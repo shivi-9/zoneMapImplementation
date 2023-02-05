@@ -44,9 +44,11 @@
 ** Screenshot of the result also added to the repository (Result.png)
 
 ## Research Questions
-1. What is the expected memory footprint (in bytes) to build the zone map? (assume: the number of elements is N and every zone has d entries)
-Solution : Memory to build a zone map depends on multiple factors such as the size of each element in the input data, the total number of elements in the input data, the total number of zones, and the total number of elements in that zone.
-Assuming, the total number of elements is N and every zone has d entries, then in this case, the memory footprint to build the zone map would be N * sizeOf(data type of each element) + d * sizeOf(data type of each element) * the total number of zones.
+1. What is the expected memory footprint (in bytes) to build the zone map? (assume: the number of elements is N and every zone has d entries) <br>
 
-2. In practice, we may have raw data stored on disk, and the zone map is maintained in memory to reduce the number of required I/Os to answer queries. What should we do if we only have a limited memory budget to build the zone map(i.e., when the memory budget of M bytes is smaller than the expected memory footprint)?
+Solution : Memory to build a zone map depends on multiple factors such as the size of each element in the input data, the total number of elements in the input data, the total number of zones, and the total number of elements in that zone. 
+Assuming, the total number of elements is N and every zone has d entries, then in this case, the memory footprint to build the zone map would be N * sizeOf(data type of each element) + d * sizeOf(data type of each element) * the total number of zones. Here, total number of zones will be approximately N/d
+
+2. In practice, we may have raw data stored on disk, and the zone map is maintained in memory to reduce the number of required I/Os to answer queries. What should we do if we only have a limited memory budget to build the zone map(i.e., when the memory budget of M bytes is smaller than the expected memory footprint)? <br>
+
 Solution : To build the zone map with budget memory, we should store the raw data on the disk and, we should also decrease the number of zones stored on the memory. For this, we should increase the size of the zones.
