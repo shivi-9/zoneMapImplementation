@@ -142,6 +142,8 @@ void generate_point_queries(std::string & output_path, Parameters & params,
 	output_file.close();
 
 }
+
+// This function generates range queries for the program and writed them to a .txt file
 void generate_range_queries(std::string & output_path, Parameters & params, std::vector<int> & input_data) {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::default_random_engine gen (seed);
@@ -151,6 +153,10 @@ void generate_range_queries(std::string & output_path, Parameters & params, std:
     int num_elements = floor(params.s * params.N);
 
     std::ofstream output_file(output_path);
+	// The loop generates two random numbers left and right using a uniform_int_distribution generator dist1
+	// The left variable is selected from a range of 0 to input_data.size() - 1 using dist1(gen)
+	// The right variable is calculated as left + num_elements but if right becomes greater than or equal to input_data.size()
+	// it is set to input_data.size()-1 and left is recalculated as right - num_elements
     for (size_t i = 0; i < params.R; i++) {
         int left = dist1(gen);
         int right = left + num_elements;
